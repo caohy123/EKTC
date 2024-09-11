@@ -1,0 +1,31 @@
+CUDA_VISIBLE_DEVICES=0 nohup python src/train_bash.py \
+    --stage sft \
+    --do_train true \
+    --model_name_or_path $MODEL \
+    --dataset train_data,validation_data \
+    --dataset_dir \
+    --template  $TEMPLATE \
+    --cutoff_len 4096 \
+    --finetuning_type lora \
+    --lora_target q_proj,v_proj \
+    --lora_alpha 8 \
+    --lora_dropout 0.1 \
+    --lora_rank 8 \
+    --output_dir  \
+    --overwrite_cache \
+    --overwrite_output_dir \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 8 \
+    --lr_scheduler_type cosine \
+    --logging_steps 10 \
+    --save_steps 100 \
+    --eval_steps 10 \
+    --learning_rate 5e-5 \
+    --num_train_epochs 3.0 \
+    --max_samples 3000 \
+    --preprocessing_num_workers 16 \
+    --val_size 0.1 \
+    --plot_loss True \
+    --fp16 \
+    --resize_vocab True
+
